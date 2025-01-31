@@ -11,7 +11,5 @@ $factory->define(Autor::class, function(Faker $faker) {
         'nome' => $this->faker->name,
         'bio' => $this->faker->paragraph,
         'foto' => $this->faker->imageUrl(),
-        'site-nome' => $this->faker->word,
-        'site-link' => $this->faker->url,
     ];
 });

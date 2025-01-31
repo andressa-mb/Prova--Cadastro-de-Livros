@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Autor extends Model
 {
     protected $table = 'autores';
-    protected $fillable = ['nome', 'bio', 'foto', 'site-nome', 'site-link'];
+    protected $fillable = ['nome', 'bio', 'foto'];
 
-    // Relacionamento: um autor pode estar associado a vários livros
     public function livros()
     {
         return $this->belongsToMany(Livro::class, 'livro_autor', 'autor_id', 'livro_id');
+    }
+
+    public function links()
+    {
+        return $this->hasMany(AutorLink::class);
     }
 }
