@@ -83,3 +83,25 @@ document
             alert(errors.join("\n"));
         }
     });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const btnsExcluir = document.querySelectorAll("a[data-toggle='modal']");
+    btnsExcluir.forEach((btn) => {
+        btn.addEventListener("click", function (event) {
+            const id = this.getAttribute("data-id");
+            const nome = this.getAttribute("data-nome");
+            let route = this.getAttribute("data-route");
+            let autorNome = document.getElementById("autorNome");
+            autorNome.textContent = `${nome} do id ${id}`;
+            document
+                .getElementById("formExcluir")
+                .setAttribute("action", route);
+        });
+    });
+
+    document
+        .getElementById("confirmeExcluir")
+        .addEventListener("click", function () {
+            document.getElementById("formExcluir").submit();
+        });
+});

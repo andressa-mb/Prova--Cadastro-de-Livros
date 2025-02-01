@@ -116,17 +116,9 @@
                             <a href="{{ route('autores.show', $autor->id) }}" class="btn btn-primary m-2">Exibir</a> 
                 <!--        @if(auth()->user() && auth()->user()->is_admin) @endif -->
                             <a href="{{ route('autores.edit', $autor->id) }}" class="btn btn-warning m-2">Editar</a> 
-                            <a href="{{ route('autores.destroy', $autor->id) }}" class="btn btn-danger" 
-                                onclick="event.preventDefault(); 
-                                if (confirm('Você tem certeza que deseja excluir este autor?')) {
-                                    document.getElementById('delete-form-{{ $autor->id }}').submit();
-                                }">
-                                    Excluir
-                            </a>
-                            <form id="delete-form-{{ $autor->id }}" action="{{ route('autores.destroy', $autor->id) }}" method="POST" style="display:none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+
+                            <a class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir" data-id="{{ $autor->id }}" data-nome="{{ $autor->nome }}" data-route="{{ route('autores.destroy', $autor-> id) }}" >Excluir</a>
+
                         </td>
                     </tr>
                     @endforeach
@@ -135,6 +127,32 @@
         <div class="mt-4 d-flex justify-content-center ">
             {{ $autores->links() }}
         </div>
+        <!-- MODAL -->
+
+        <div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog" aria-labelledby="modalExcluir" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">Excluir Autor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Deseja realmente excluir o(a) autor(a) <span id="autorNome">?</p>
+                        <form action="" method="POST" id="formExcluir">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="confirmeExcluir">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>   
 
 </body>
