@@ -15,7 +15,7 @@
         <h1>Sistema da Livraria</h1>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="#">Livros</a>
                     </li>
@@ -26,6 +26,7 @@
                         <a class="nav-link" href="#">Autores<span class="sr-only">(Página atual)</span></a>
                     </li>
                 </ul>
+                <a class="btn btn-primary" href="#" role="button">Login</a>
             </div>
         </nav>
     </header>

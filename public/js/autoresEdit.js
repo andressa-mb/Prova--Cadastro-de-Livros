@@ -98,8 +98,6 @@ document.getElementById("formEdit").addEventListener("submit", function (e) {
     let siteLinkInput = document.getElementById("inputUrl");
     let siteName = siteNameInput ? siteNameInput.value.trim() : "";
     let siteLink = siteLinkInput ? siteLinkInput.value.trim() : "";
-    //    let removidosInput = document.getElementById("removidos");
-    //    let removidos = removidosInput.value.trim();
     let errors = [];
 
     if (nome.length < 3) {
@@ -137,13 +135,6 @@ document.getElementById("formEdit").addEventListener("submit", function (e) {
             errors.push(`Digite um link válido.`);
         }
     }
-    /* 
-    if (removidos !== "") {
-        // Envia o formulário
-        this.submit();
-    } else {
-        alert("Não há links para remover.");
-    } */
 
     if (errors.length > 0) {
         return alert(errors.join("\n"));
