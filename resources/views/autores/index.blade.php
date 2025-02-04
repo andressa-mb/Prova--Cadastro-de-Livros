@@ -127,8 +127,8 @@
         <div class="mt-4 d-flex justify-content-center ">
             {{ $autores->links() }}
         </div>
-        <!-- MODAL -->
 
+        <!-- MODAL -->
         <div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog" aria-labelledby="modalExcluir" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

@@ -1,11 +1,11 @@
 document.getElementById("addLinkBtn").addEventListener("click", function () {
-    var siteName = document.getElementById("inputSite").value.trim();
-    var siteLink = document.getElementById("inputUrl").value.trim();
+    let siteName = document.getElementById("inputSite").value.trim();
+    let siteLink = document.getElementById("inputUrl").value.trim();
 
     if (siteName && siteLink) {
         if (verificarEAdicionarProtocolo(siteLink)) {
-            var addedLinksDiv = document.getElementById("addedLinks");
-            var linkItem = document.createElement("div");
+            let addedLinksDiv = document.getElementById("addedLinks");
+            let linkItem = document.createElement("div");
             linkItem.classList.add("link_item");
             linkItem.innerHTML = `
                 <span class="ml-4" >${siteName} - <a href="${siteLink}" target="_blank">${siteLink}</a></span>
