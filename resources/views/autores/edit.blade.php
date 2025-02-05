@@ -22,25 +22,8 @@
 </head>
 
 <body>
-<header class=" p-4 bg-white shadow-sm">
-    <h1>Sistema da Livraria</h1>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Livros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Categorias</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Autores<span class="sr-only">(Página atual)</span></a>
-                </li>
-            </ul>
-            <a class="btn btn-primary" href="#" role="button">Login</a>
-        </div>
-    </nav>
-</header>
+@include('header')
+
 <main class="m-4">
 @section('content')
 @if(session('success'))

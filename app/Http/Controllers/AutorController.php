@@ -19,9 +19,15 @@ class AutorController extends Controller
         $autores = Autor::with('links')
         ->withCount('livros')
         ->orderBy('nome', 'asc')
-        ->paginate(4);
+        ->paginate(10);
 
         return view('autores.index', compact('autores'));
+    }
+
+    public function create(){
+        $autores = Autor::with('links');
+
+        return view('autores.cadastro', compact($autores));
     }
 
     public function store(Request $request)
@@ -36,6 +42,7 @@ class AutorController extends Controller
             'site_link.*' => 'nullable|max:120'
         ]);
 
+        if($request->ajax()){}
         if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
             $fotoPath = $request->foto->store('autores_fotos', 'public');
         } else {
@@ -59,6 +66,10 @@ class AutorController extends Controller
                 }
             }
         }
+
+        if ($request->input('modal') === 'true') {
+            return redirect()->back()->with('success', 'autor_cadastrado', $autor);
+        }
         
         return redirect('/autores')->with('success', 'Autor cadastrado com sucesso!');
     }
@@ -67,9 +78,11 @@ class AutorController extends Controller
     {
         $autor = Autor::with(['livros' => function ($query) {
             $query->orderBy('titulo', 'asc');
-        }])->findOrFail($id);
+        }, 
+        'livros.categorias'
+        ])->findOrFail($id);
 
-        return view('autores.show', compact('autores'));
+        return view('autores.show', compact('autor'));
     }
 
     public function edit($id)
