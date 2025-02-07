@@ -11,8 +11,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-
 @include('header')
+@extends('layouts.app')
 
 <main class="m-4">
 
@@ -32,6 +32,7 @@
         </div>
         </form>     
         <h2>Lista de Livros</h2>
+       
         @if($livros->count())
         <table class="table">
             <thead>
@@ -80,11 +81,11 @@
 
                     <td>
                         <a href="{{ route('livros.show', $livro->id) }}" class="btn btn-primary m-2">Exibir</a> 
-            <!--        @if(auth()->user() && auth()->user()->is_admin) @endif -->
+                        @if(Auth::user() && (Auth::user()->tipoUsuario === 'administrador' || Auth::user()->tipoUsuario === 'admin'))
                         <a href="{{ route('livros.edit', $livro->id) }}" class="btn btn-warning m-2">Editar</a> 
 
                         <a class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir" data-id="{{ $livro->id }}" data-nome="{{ $livro->titulo }}" data-route="{{ route('livros.destroy', $livro-> id) }}" >Excluir</a>
-
+                    @endif
                     </td>
                 </tr>
                 @endforeach

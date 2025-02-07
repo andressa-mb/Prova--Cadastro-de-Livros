@@ -9,10 +9,6 @@ use App\Models\AutorLink;
 
 class AutorController extends Controller
 {
-/*     public function __construct()
-    {
-        $this->middleware('admin')->only(['index', 'create', 'store']);
-    } */
 
     public function index()
     {

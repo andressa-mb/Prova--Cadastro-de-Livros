@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Livro;
 use App\Models\Autor;
 use App\Models\Categoria;
+use App\Models\Favorito;
+use Illuminate\Support\Facades\Auth;
 class LivroController extends Controller 
 {
     public function index(Request $request){
@@ -68,7 +70,7 @@ class LivroController extends Controller
         $livro->autores()->sync($request->autor);
         $livro->categorias()->sync($request->categoria);
 
-        return redirect('/livros')->with('success', 'Livro cadastrado com sucesso!');
+        return redirect('/')->with('success', 'Livro cadastrado com sucesso!');
     
     }
 
@@ -114,7 +116,7 @@ class LivroController extends Controller
         $livro->autores()->sync($request->autor);
         $livro->categorias()->sync($request->categoria);
 
-        return redirect('/livros')->with('success', 'Livro atualizado com sucesso!');
+        return redirect('/')->with('success', 'Livro atualizado com sucesso!');
    }
 
     public function destroy($id){
@@ -123,12 +125,17 @@ class LivroController extends Controller
         $livro->categorias()->detach();
         $livro->delete();
 
-        return redirect('/livros')->with('success', 'Livro excluído com sucesso!');
+        return redirect('/')->with('success', 'Livro excluído com sucesso!');
     }
 
     public function show($id){
-        $livro = Livro::with('autores', 'categorias')->findOrFail($id);
+        $livro = Livro::with('autores', 'categorias', 'favoritos')->with(['comentarios' => function($query) {
+            $query->where('ativo', true);
+        }])->findOrFail($id);
 
-        return view('livros.show', compact('livro'));
+        $favorito = Favorito::where('livro_id', $livro->id)
+        ->where('leitor_id', Auth::id())
+        ->first();
+        return view('livros.show', compact('livro', 'favorito'));
     }
 }

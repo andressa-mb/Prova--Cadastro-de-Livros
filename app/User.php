@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Comentario;
+use App\Models\Favorito;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,8 +17,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'usuarios';
+    
     protected $fillable = [
-        'name', 'email', 'password',
+        'nome', 'email', 'password', 'tipoUsuario'
     ];
 
     /**
@@ -36,4 +40,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'livro_id', 'leitor_id');
+    }
+
+    public function favoritos()
+    {
+        return $this->hasMany(Favorito::class, 'livro_id', 'leitor_id');
+    }
+
 }

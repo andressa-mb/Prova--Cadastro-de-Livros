@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Comentario;
+use App\Models\Favorito;
 
 class Livro extends Model
 {
@@ -17,5 +19,15 @@ class Livro extends Model
     public function categorias()
     {
         return $this->belongsToMany(Categoria::class, 'livro_categoria', 'livro_id', 'categoria_id');
+    }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, 'livro_id');
+    }
+
+    public function favoritos()
+    {
+        return $this->hasMany(Favorito::class, 'livro_id');
     }
 }

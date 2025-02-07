@@ -15,6 +15,11 @@ class CreateComentariosTable extends Migration
     {
         Schema::create('comentarios', function (Blueprint $table) {
             $table->id();
+            $table->text('comentario')->nullable();
+            $table->integer('pontuacao')->nullable();
+            $table->boolean('ativo')->default(true);
+            $table->foreignId('livro_id')->constrained('livros')->onDelete('cascade');
+            $table->foreignId('leitor_id')->constrained('usuarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

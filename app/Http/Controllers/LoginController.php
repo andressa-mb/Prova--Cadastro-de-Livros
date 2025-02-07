@@ -1,65 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    //protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-
-    protected function credentials(Request $request)
+    protected function guard()  
     {
-        return [
-            'email' => $request->email, 
-            'password' => $request->password
-        ];
+        return Auth::guard('guard-name');
     }
-    
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+   
 
     protected function redirectTo()
     {
         $user = Auth::user();
 
         if ($user->tipoUsuario === 'administrador' || $user->tipoUsuario === 'admin') { 
-            return route('admin.dashboard');
+            return redirect()->intended('admin.dashboard');
 
         } 
         if ($user->tipoUsuario === 'leitor') {
-            return route('livros.index');
+            echo "leitor ";
+            return '/';
         }
 
         return '/';
@@ -71,6 +39,7 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        Log::info("credenciais do controller loggin " + $credentials);
 
         if (Auth::attempt($credentials)) {
             return redirect($this->redirectTo()); 
@@ -99,4 +68,5 @@ class LoginController extends Controller
 
         return redirect()->route('login')->with('success', 'Usuário cadastrado com sucesso!');
     }
+
 }

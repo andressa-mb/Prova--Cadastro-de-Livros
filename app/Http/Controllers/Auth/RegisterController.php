@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\Usuario;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -40,6 +42,12 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    
+    protected function guard()  
+    {
+        return Auth::guard('guard-name');
+    }
+   
 
     /**
      * Get a validator for an incoming registration request.
@@ -47,28 +55,36 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+
+    public function store(Request $request)
     {
-        return Validator::make($data, [
+        /* 
+        Validation
+        */
+        $request->validate([
             'nome' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:120', 'unique:usuarios'],
-            'senha' => ['required', 'string', 'min:6', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
+
+        /*
+        Database Insert
+        */
+        $user = User::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Auth::login($user);
+
+        return redirect(RouteServiceProvider::HOME);
+
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\Usuario
-     */
-    protected function create(array $data)
+    public function create()
     {
-        return Usuario::create([
-            'nome' => $data['nome'],
-            'email' => $data['email'],
-            'senha' => Hash::make($data['senha']),
-            'tipo' => 'leitor',
-        ]);
+        return view('auth.register');
     }
-}
+
+} 

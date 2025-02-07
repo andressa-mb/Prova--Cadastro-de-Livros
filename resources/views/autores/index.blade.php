@@ -11,8 +11,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    @include('header')
-
+@include('header')
+@extends('layouts.app')
 <main class="m-4">
 
 @section('content')
@@ -67,11 +67,11 @@
 
                 <td>
                     <a href="{{ route('autores.show', $autor->id) }}" class="btn btn-primary m-2">Exibir</a> 
-        <!--        @if(auth()->user() && auth()->user()->is_admin) @endif -->
+                    @if(Auth::user() && (Auth::user()->tipoUsuario === 'administrador' || Auth::user()->tipoUsuario === 'admin'))
                     <a href="{{ route('autores.edit', $autor->id) }}" class="btn btn-warning m-2">Editar</a> 
 
                     <a class="btn btn-danger" data-toggle="modal" data-target="#modalExcluir" data-id="{{ $autor->id }}" data-nome="{{ $autor->nome }}" data-route="{{ route('autores.destroy', $autor-> id) }}" >Excluir</a>
-
+                    @endif
                 </td>
             </tr>
             @endforeach

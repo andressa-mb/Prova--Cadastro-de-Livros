@@ -22,7 +22,7 @@
 
 <body>
 @include('header')
-
+@extends('layouts.app')
 <main class="m-4">
 <div id="categoria" class="container">
     <h1 class="text-center">{{ $categoria->nome }}</h1>

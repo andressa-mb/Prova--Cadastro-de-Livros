@@ -15,6 +15,8 @@ class CreateFavoritosTable extends Migration
     {
         Schema::create('favoritos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('livro_id')->constrained('livros')->onDelete('cascade');
+            $table->foreignId('leitor_id')->constrained('usuarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

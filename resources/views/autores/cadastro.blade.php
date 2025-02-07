@@ -13,7 +13,7 @@
 <body>
 
 @include('header')
-
+@extends('layouts.app')
 <main class="m-4">
 
 @section('content')

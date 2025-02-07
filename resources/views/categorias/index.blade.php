@@ -13,7 +13,7 @@
 <body>
 
 @include('header')
-
+@extends('layouts.app')
 <main class="m-4">
 
 @section('content')
@@ -43,11 +43,11 @@
                 <td>{{ $categoria->livros_count}}</td>
                 <td>
                     <a href="{{ route('categorias.show', $categoria->id) }}" class="btn btn-primary m-2">Exibir</a> 
-        <!--        @if(auth()->user() && auth()->user()->is_admin) @endif -->
+                    @if(Auth::user() && (Auth::user()->tipoUsuario === 'administrador' || Auth::user()->tipoUsuario === 'admin'))
                     <a href="{{ route('categorias.edit', $categoria->id) }}" class="btn btn-warning m-2">Editar</a> 
 
                     <a href="{{ route('categorias.showDelete', $categoria->id) }}" class="btn btn-danger">Excluir</a>
-
+                    @endif
                 </td>
             </tr>
             @endforeach

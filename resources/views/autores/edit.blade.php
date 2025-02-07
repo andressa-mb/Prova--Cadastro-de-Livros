@@ -23,7 +23,7 @@
 
 <body>
 @include('header')
-
+@extends('layouts.app')
 <main class="m-4">
 @section('content')
 @if(session('success'))
@@ -47,7 +47,7 @@
     <form id="formEdit" action="{{ route('autores.update', $autor->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
+        
         <div class="form-group w-50">
             <label for="nome" class="form-label">Nome do autor:</label>
             <input type="text" name="nome" id="inputNome" class="form-control @error('nome') is-invalid @enderror" value="{{ $autor->nome }}" required>
@@ -59,22 +59,22 @@
         <div class="form-group">
             <input type="file" accept="image/*" name="foto" id="inputFoto" class="@error('foto') is-invalid @enderror">
         </div>
-        <div class="form-row">
         @foreach ($autorLinks as $link)
+        <div class="form-row">
+        <input type="hidden" name="site_id[]" value="{{ $link->id }}">
             <div class="form-group col-md-5">
                 <label for="labelSite">Nome do Site</label>
                 <input type="text" class="form-control @error('site_nome') is-invalid @enderror" name="site_nome[]" id="inputSite" value="{{ $link->site_nome }}">
-                <input type="hidden" name="site_id[]" value="{{ $link->id }}">
             </div>
             <div class="form-group col-md-5">
                 <label for="labelUrl">URL do site</label>
                 <input type="text" class="form-control @error('site_link') is-invalid @enderror" name="site_link[]" id="inputUrl" value="{{ $link->site_link }}">
             </div>
             <div class="form-group col-md-2 d-flex align-items-end">
-                <button type="button" class="btn btn-danger btn-remove" id="btn-remove">X</button>
+                <button type="button" class="btn btn-danger btn-remove" data-id="{{ $link->id }}" data-existing="true" id="btn-remove">X</button>
             </div>
-        @endforeach
         </div>
+        @endforeach
         <input type="hidden" id="removidos" name="removidos" value="">
         <div id="divLinks"></div>
 
