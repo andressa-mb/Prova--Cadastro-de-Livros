@@ -9,7 +9,6 @@ class Categoria extends Model
     protected $table = 'categorias';
     protected $fillable = ['nome', 'descricao', 'numero_livros'];
 
-    // Relacionamento: uma categoria pode ter vários livros
     public function livros()
     {
         return $this->belongsToMany(Livro::class, 'livro_categoria', 'categoria_id', 'livro_id');

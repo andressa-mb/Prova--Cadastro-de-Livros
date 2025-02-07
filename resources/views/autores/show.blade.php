@@ -24,9 +24,10 @@
 @include('header')
 
 <main class="m-4">
+<div class="container">
     <div id="autor">
         <h1 class="text-center">{{ $autor->nome }}</h1>
-        <img src="{{ $autor->foto ? asset('storage/'. $autor->foto) : asset('imagens/avatar.jpg') }}" alt='Foto Autor' width="80" class="rounded mx-auto d-block"> 
+        <img src="{{ $autor->foto && Storage::exists('public/' . $autor->foto) ? asset('storage/'. $autor->foto) : asset('imagens/avatar.jpg') }}" alt='Foto Autor' width="80" class="rounded mx-auto d-block"> 
     </div>
     <div id="bio">
         <h4>Biografia:</h4>
@@ -73,7 +74,7 @@
             @endforeach
         </tbody> 
     </div>
-
+</div>
 </main>
 
 </body>

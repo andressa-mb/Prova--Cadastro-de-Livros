@@ -41,8 +41,7 @@ class AutorController extends Controller
             'site_nome.*' => 'nullable|string|max:20',
             'site_link.*' => 'nullable|max:120'
         ]);
-
-        if($request->ajax()){}
+        
         if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
             $fotoPath = $request->foto->store('autores_fotos', 'public');
         } else {
@@ -68,7 +67,7 @@ class AutorController extends Controller
         }
 
         if ($request->input('modal') === 'true') {
-            return redirect()->back()->with('success', 'autor_cadastrado', $autor);
+            return redirect()->back()->with('success', 'Autor criado com sucesso.', $autor);
         }
         
         return redirect('/autores')->with('success', 'Autor cadastrado com sucesso!');

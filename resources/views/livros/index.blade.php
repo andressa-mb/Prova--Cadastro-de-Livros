@@ -24,8 +24,15 @@
     </div>
 @endif
 
-    <div id="listaLivros" class="mt-4 table-responsive-lg">       
+    <div id="listaLivros" class="mt-4 table-responsive-lg container">  
+        <form method="GET" action="{{ route('livros.index') }}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="pesquisar" class="form-control" placeholder="Pesquisar por título, editora, autor ou categoria" value="{{ request('pesquisar') }}">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+        </form>     
         <h2>Lista de Livros</h2>
+        @if($livros->count())
         <table class="table">
             <thead>
                 <tr>
@@ -86,7 +93,9 @@
     <div class="mt-4 d-flex justify-content-center">
         {{ $livros->links() }}
     </div>
-
+    @else
+        <p class="text-muted">Nenhum livro encontrado.</p>
+    @endif
     <!-- MODAL -->
     <div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog" aria-labelledby="modalExcluir" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

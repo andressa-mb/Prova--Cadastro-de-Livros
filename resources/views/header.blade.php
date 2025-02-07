@@ -13,8 +13,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->is('categorias*') ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Lista de Cadastro</a>
-                        <a class="dropdown-item" href="#">Cadastro de Categorias</a>
+                        <a class="dropdown-item" href="{{ route('categorias.index') }}">Lista de Categorias</a>
+                        <a class="dropdown-item" href="{{ route('categorias.cadastro') }}">Cadastro de Categorias</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

@@ -35,7 +35,7 @@
     </div>
 @endif
 
-<div class="m-4">  
+<div class="container">  
     <h2>Cadastro de Livros</h2>
     <form action="{{ route('livros.store') }}" method="POST" id="formCadastroLivros" enctype="multipart/form-data">
         @csrf
@@ -52,40 +52,40 @@
         </div>
         <div class="form-group w-50">
             <label for="labelDataPubli">Data de publicação</label>
-            <input class="form-control @error('data_publicacao') is-invalid @enderror" id="inputDataPubli" name="data_publicacao" placeholder="20/01/2025" required>
+            <input type="date" class="form-control @error('data_publicacao') is-invalid @enderror" id="inputDataPubli" name="data_publicacao" placeholder="20/01/2025" required>
         </div>
         <div class="form-group w-50">
             <label for="labelKeywords">Keywords</label>
             <input class="form-control @error('keywords') is-invalid @enderror" id="inputKeywords" name="keywords" placeholder="Emocionante">
         </div>
-
         <div class="form-group w-50">
-            <label for="inputAutor">Autor</label>
-            <select class="form-control" id="selectAutor" name="autor_id" required>
-                <option value="">Selecione um autor</option>
-                @foreach($autores as $autor)
-                    <option value="{{ $autor->id }}">{{ $autor->nome }}</option>
-                @endforeach
-            </select>
-            <button type="button" class="btn btn-sm btn-success mt-2" data-toggle="modal" data-target="#modalAutor">
+            <label for="autor" class="form-label">Selecione o(s) Autor(es)</label>
+            <button type="button" class="btn btn-sm btn-success my-2 d-block" data-toggle="modal" data-target="#modalAutor">
                 + Adicionar Autor
             </button>
+            <div class="border p-3 rounded">
+                @foreach($autores as $autor)
+                    <div class="form-check">
+                        <input type="checkbox" name="autor[]" value="{{ $autor->id }}" class="form-check-input" id="autor_{{ $autor->id }}">
+                        <label class="form-check-label" for="categoria_{{ $autor->id }}">{{ $autor->nome }}</label>
+                    </div>
+                @endforeach
+            </div>
         </div>
-
-<!--            <div class="form-group w-50">
-            <label for="inputCategoria">Categoria</label>
-            <select class="form-control" id="inputCategoria" name="categoria_id" required>
-                <option value="">Selecione uma categoria</option>
-            {{--    @foreach($categorias as $categoria)
-                    <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
-                @endforeach --}}
-            </select>
-            <button type="button" class="btn btn-sm btn-success mt-2" data-toggle="modal" data-target="#modalCategoria">
+        <div class="form-group w-50">
+            <label for="categoria" class="form-label">Selecione a(s) Categoria(s)</label>
+            <button type="button" class="btn btn-sm btn-success my-2 d-block" data-toggle="modal" data-target="#modalCategoria">
                 + Adicionar Categoria
-            </button>
+            </button>           
+            <div class="border p-3 rounded">
+                @foreach($categorias as $categoria)
+                    <div class="form-check">
+                        <input type="checkbox" name="categoria[]" value="{{ $categoria->id }}" class="form-check-input" id="categoria_{{ $categoria->id }}">
+                        <label class="form-check-label" for="categoria_{{ $categoria->id }}">{{ $categoria->nome }}</label>
+                    </div>
+                @endforeach
+            </div>
         </div>
--->
-
         <button type="submit" id="btnCadastro" class="btn btn-primary mt-4">Cadastrar</button>
     </form>
 </div>
@@ -134,7 +134,7 @@
 </div>
 
     <!-- MODAL CATEGORIA -->
-<!-- 
+
 <div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="modalCategoriaLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -145,18 +145,34 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST" id="formCadastroCategoria">
+                <form action="{{route('categorias.store')}}" method="POST" id="formCadastroCategoria">
                     @csrf
-                    <div class="form-group">
-                        <label for="nomeCategoria">Nome da Categoria</label>
-                        <input type="text" class="form-control" id="nomeCategoria" name="nome" required>
+                    <input type="hidden" name="modal" value="true">
+                    <div class="form-group w-50">
+                        <label for="nomeCategoria">Nome da categoria:</label>
+                        <input class="form-control @error('nome') is-invalid @enderror" id="inputNomeCat" name="nome" placeholder="Aventura" required>
+                    </div>
+                    <div class="form-group w-50">
+                        <label for="descricao">Descrição:</label>
+                        <input class="form-control @error('descricao') is-invalid @enderror" id="inputDescricao" name="descricao" placeholder="Livros de Aventura...">
+                    </div>
+                    <div class="form-group w-50">
+                        <label for="livrosAssociados" class="form-label">Livros Associados</label>
+                        <div class="border p-3 rounded">
+                            @foreach($livros as $livro)
+                                <div class="form-check">
+                                    <input type="checkbox" name="livros[]" value="{{ $livro->id }}" class="form-check-input" id="livro_{{ $livro->id }}">
+                                    <label class="form-check-label" for="livro_{{ $livro->id }}">{{ $livro->titulo }}</label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Salvar Categoria</button>
                 </form>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 </main>
 </body>

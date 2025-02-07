@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 e.preventDefault();
                 alert(errors.join("\n"));
             }
-            console.log("ta no form dos autores ");
         });
     }
 });

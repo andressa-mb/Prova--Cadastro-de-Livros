@@ -23,7 +23,8 @@
 <body>
 @include('header')
 
-<main class="m-auto w-50">
+<main class="m-4">
+<div class="container">
     <div id="livro">
         <h1 class="text-center">{{ $livro->titulo }}</h1>
         <img src="{{ $livro->capa ? asset('storage/'. $livro->capa) : asset('imagens/capa.png') }}" alt='Capa Livro' width="150" class="rounded mx-auto d-block"> 
@@ -51,9 +52,6 @@
                 <li>{{ $autor->nome }}</li>
             @endforeach
         </ul>
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-primary btn-sm" href="{{ route('autores.cadastro') }}" role="button">Cadastrar Autor(a)</a>
-        </div>
     </div>
     <div id="categorias" class="mb-5">
         <h4>Categorias</h4>
@@ -62,11 +60,10 @@
                 <li>{{ $categoria->nome }}</li>
             @endforeach
         </ul>
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-primary btn-sm" href="#" role="button">Cadastrar Categoria</a>
-        </div>
     </div>
-   
+
+    <div>COMENTÁRIOS SERÃO AQUI</div>
+</div>
 </main>
 
 </body>

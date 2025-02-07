@@ -33,7 +33,7 @@
     </div>
 @endif
 
-<div id="listaAutores" class="mt-4 table-responsive-lg">       
+<div id="listaAutores" class="mt-4 table-responsive-lg container">       
     <h2>Lista de Autores</h2>
     <table class="table">
         <thead>
